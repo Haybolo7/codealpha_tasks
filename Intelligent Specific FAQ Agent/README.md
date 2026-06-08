@@ -6,7 +6,7 @@ It is an AI FAQ agent, powered by large language models (LLMs) that answers ques
 2. **Advanced Parameter Control Panel** : Includes an interactive collapsible configuration drawer allowing administrators or technical users to tweak underlying model parameters dynamically (System Prompt Context, Maximum New Tokens, Temperature, and Top-p sampling).
 3. **Polished Custom User Interface** : Built using a modern dual-column canvas. It overrides standard Gradio styles with comprehensive CSS injections for dark/light mode transitions, customized buttons, specific grid scaling, container branding, and quick-click question suggestion chips.
 
-## 🏢 Benefits for Your Organization
+## 🏢 Benefits for the Organization
 1. *Reduced Support Burden*: Automates responses to repetitive questions, freeing up human agents for complex issues.
 2. *Improved Consistency* : Enforces strict brand guidelines and compliance via a centralized system prompt.
 3. *Increased User Satisfaction*: Delivers immediate, accurate, and 24/7 assistance without human intervention.
