@@ -13,9 +13,11 @@ It is an AI FAQ agent, powered by large language models (LLMs) that answers ques
 3. *Increased User Satisfaction*: Delivers immediate, accurate, and 24/7 assistance without human intervention.
 
 ## 🚀 Tech Stack
+The project was made utilising the below given technologies. The project can be accessed using the given URL: https://huggingface.co/spaces/VectorV17/Intelli_Agent 
+
  -> **Frontend/Interface**: Gradio 6.x (gr.Blocks, gr.Group, gr.Timer, gr.Chatbot)
  
- -> **Backend Logic**: Python 3.13, datetime
+ -> **Backend Logic**: Python 3.13, datetime 
  
  -> **Packages & Hosting**: nltk library, scikit-learn, Hugging Face Spaces (CPU-basic tier)
  
