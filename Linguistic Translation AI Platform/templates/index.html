@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XTranslate</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="main-workspace">
+        <aside class="info-sidebar">
+            <h2 style="font-weight:bold; color:yellow">Welcome to the Linguistic Platform</h2>
+            <p style="font-size: 15px; font-weight:bold">It is an active functional platform<br>that bridges global communication gaps, allowing users to effortlessly understand and interact in foreign languages.</p>
+            <ul>
+                <li style="font-size: 15px; font-style:italic; text-decoration: underline; font-weight:bold">🚀Key Features:-</li>
+                <li><span>✔</span> Core Translation</li>
+                <li><span>✔</span> Language Identification</li>
+                <li><span>✔</span> Universal Transliteration</li>
+                <li><span>✔</span> Part-of-Speech Annotation</li>
+            </ul>
+            <div class="sidebar-footer">
+                <small>Infrastructure State: Online</small>
+            </div>
+        </aside>
+
+        <main class="control-center">
+            <header class="app-header">
+                <div class="logo-area">
+                    <div class="bot-avatar">🤖</div>
+                    <h1>XTranslate Agentic Studio <span class="badge">v2.5</span></h1>
+                </div>
+                <div class="sys-status">🟢 Engine Status: Live</div>
+            </header>
+
+            <div class="agent-grid">
+                <div class="card">
+                    <div class="card-bar">
+                        <select id="sourceLang">
+                            <option value="auto">🌐 Auto-Detect Language</option>
+                            <option value="en">English</option>
+                            <option value="hi">Hindi (हिंदी)</option>
+                            <option value="es">Spanish (Español)</option>
+                            <option value="fr">French (Français)</option>
+                            <option value="de">German (Deutsch)</option>
+                            <option value="zh-CN">Chinese (Simplified)</option>
+                            <option value="ja">Japanese (日本語)</option>
+                        </select>
+                        <span id="outputModeBadge" class="mode-badge">Language Select</span>
+                    </div>
+                    <textarea id="sourceInput" placeholder="Type, paste, or input your textual string here..."></textarea>
+                </div>
+
+                <div class="card">
+                    <div class="card-bar">
+                        <select id="targetLang">
+                            <option value="en"> 📒 English</option>
+                            <option value="hi">Hindi (हिंदी)</option>
+                            <option value="es">Spanish (Español)</option>
+                            <option value="fr">French (Français)</option>
+                            <option value="de">German (Deutsch)</option>
+                            <option value="zh-CN">Chinese (Simplified)</option>
+                            <option value="ja">Japanese (日本語)</option>
+                        </select>
+                        <span id="outputModeBadge" class="mode-badge">Result View</span>
+                    </div>
+                    <textarea id="targetOutput" placeholder="Engine processing outputs project here..." readonly></textarea>
+                </div>
+            </div>
+
+            <div class="operation-settings">
+                <div class="setting-item">
+                    <label for="translatorService">Active Neural Translation Network Service Selector</label>
+                    <select id="translatorService">
+                        <option value="google">Google Cloud Neural Network</option>
+                        <option value="mymemory">MyMemory Shared API Network</option>
+                    </select>
+                </div>
+            </div>
+            <label for="translatorService" style="font-size: 15px; font-weight:bold; color:green">ENABLED LINGUISTIC SELECT FUNCTIONALITIES:-</label>
+            <div class="execution-cluster">
+                <button class="btn btn-primary" onclick="executeAgentTask('translate')">Translate Text</button>
+                <button class="btn btn-primary" onclick="executeAgentTask('detect')">Detect Language</button>
+                <button class="btn btn-primary" onclick="executeAgentTask('transliterate')">Transliterate Script</button>
+                <button class="btn btn-primary" onclick="executeAgentTask('annotate')">Annotate Structure</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        async function executeAgentTask(actionName) {
+            const text = document.getElementById('sourceInput').value;
+            const source_lang = document.getElementById('sourceLang').value;
+            const target_lang = document.getElementById('targetLang').value;
+            const service = document.getElementById('translatorService').value;
+            
+            const outputField = document.getElementById('targetOutput');
+            const modeBadge = document.getElementById('outputModeBadge');
+
+            if (!text.trim()) {
+                alert("Please inject source text before activating processing pipelines.");
+                return;
+            }
+
+            outputField.value = `Activating automated tracking pipeline for [${actionName}]...`;
+            
+            try {
+                const response = await fetch('/process', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text, source_lang, target_lang, service, action: actionName })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    outputField.value = data.result;
+                    modeBadge.innerText = data.mode;
+                    
+                    // Dynamic coloring for structural confirmation feedback
+                    if (actionName === 'translate') {
+                        modeBadge.style.background = '#1a73e8';
+                    } else if (actionName === 'detect') {
+                        modeBadge.style.background = '#2e7d32'; // Distinct green for detection
+                    } else {
+                        modeBadge.style.background = '#00b4d8';
+                    }
+                } else {
+                    outputField.value = `Routing Error: ${data.error}`;
+                }
+            } catch (err) {
+                outputField.value = "Critical communication loss with processing script server.";
+                console.error(err);
+            }
+        }
+    </script>
+</body>
+</html>
